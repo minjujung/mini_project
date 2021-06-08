@@ -10,7 +10,7 @@ db = client.team35_db
 
 @app.route('/')
 def main():
-    return render_template("index.html")
+    return render_template("diary.html")
 
 @app.route('/diary')
 def listing():
