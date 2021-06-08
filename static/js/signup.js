@@ -13,12 +13,10 @@ const inputPW2 = document.getElementById("input-password2")
 const inputNick = document.getElementById("input-nickname")
 const signUpBtn = document.querySelector(".sign_up_btn")
 
-const signUpBox = document.getElementById("sign-up-box")
-const divSignInOrUp = document.getElementById("div-sign-in-or-up")
-const btnCheckDup = document.getElementById("btn-check-dup")
 const helpId = document.getElementById("help-id")
 const helpPassword = document.getElementById("help-password")
 const helpPassword2 = document.getElementById("help-password2")
+const helpNickname = document.getElementById("help-nickname")
 
 const signUp = document.querySelector(".sign_up")
 const checkDup = document.querySelector(".check_dup")
@@ -28,9 +26,13 @@ const is_nickname = (asValue) => {
     return regExp.test(asValue);
 }
 
+const is_password = (asValue) => {
+    var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
+    return regExp.test(asValue);
+}
+
 function checkDupClick() {
-    
-    let username =inputId.value
+    let username = inputId.value
 
     if (username == "") {
         helpId.innerText = "아이디를 입력해주세요."
@@ -38,14 +40,13 @@ function checkDupClick() {
         helpId.classList.add("is-danger")
         inputId.focus()
         return;
-    } else {
-        if (!is_nickname(username)) {
-            helpId.innerText = "아이디의 형식을 확인해주세요. 영문과 숫자, 일부 특수문자(._-) 사용 가능. 2-10자 길이"
-            helpId.classList.remove("is-safe")
-            helpId.classList.add("is-danger")
-            inputId.focus()
-            return;
-        }
+    } 
+    if (!is_nickname(username)) {
+        helpId.innerText = "아이디의 형식을 확인해주세요. 영문과 숫자, 일부 특수문자(._-) 사용 가능. 2-10자 길이"
+        helpId.classList.remove("is-safe")
+        helpId.classList.add("is-danger")
+        inputId.focus()
+        return;
     }
     helpId.classList.add("is-loading")
     $.ajax({
@@ -78,40 +79,57 @@ const signUpClick = () => {
     let password2 = inputPW2.value
     let nickname = inputNick.value
 
-    const is_password = (asValue) => {
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
-        return regExp.test(asValue);
+    if (helpId.classList.contains("is-danger")) {
+        alert("아이디를 다시 확인해주세요.")
+        return;
+    } else if (!helpId.classList.contains("is-success")) {
+        alert("아이디 중복확인을 해주세요.")
+        return;
     }
-    // if (helpId.classList.contains("is-danger")) {
-    //     alert("아이디를 다시 확인해주세요.")
-    //     return;
-    // } else if (!helpId.classList.contains("is-success")) {
-    //     alert("아이디 중복확인을 해주세요.")
-    //     return;
-    // }
 
-    // if (password == "") {
-    //     helpPassword.innerText("비밀번호를 입력해주세요.").classList.remove("is-safe").classList.add("is-danger")
-    //     inputPW1.focus()
-    //     return;
-    // } else if (!is_password(password)) {
-    //     $("#help-password").text("비밀번호의 형식을 확인해주세요. 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능 8-20자").removeClass("is-safe").addClass("is-danger")
-    //     $("#input-password").focus()
-    //     return
-    // } else {
-    //     $("#help-password").text("사용할 수 있는 비밀번호입니다.").removeClass("is-danger").addClass("is-success")
-    // }
-    // if (password2 == "") {
-    //     $("#help-password2").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
-    //     $("#input-password2").focus()
-    //     return;
-    // } else if (password2 != password) {
-    //     $("#help-password2").text("비밀번호가 일치하지 않습니다.").removeClass("is-safe").addClass("is-danger")
-    //     $("#input-password2").focus()
-    //     return;
-    // } else {
-    //     $("#help-password2").text("비밀번호가 일치합니다.").removeClass("is-danger").addClass("is-success")
-    // }
+    if (password == "") {
+        helpPassword.innerText = "비밀번호를 입력해주세요."
+        helpPassword.classList.remove("is-safe")
+        helpPassword.classList.add("is-danger")
+        inputPW1.focus()
+        return;
+    } else if (!is_password(password)) {
+        helpPassword.innerText = "비밀번호의 형식을 확인해주세요. 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능 8-20자"
+        helpPassword.classList.remove("is-safe")
+        helpPassword.classList.add("is-danger")
+        inputPW1.focus()
+        return;
+    } else {
+        helpPassword.innerText = "사용할 수 있는 비밀번호입니다."
+        helpPassword.classList.remove("is-danger")
+        helpPassword.classList.add("is-success")
+    }
+    if (password2 == "") {
+       helpPassword2.innerText = "비밀번호를 입력해주세요."
+       helpPassword2.classList.remove("is-safe")
+       helpPassword2.classList.add("is-danger")      
+    inputPW2.focus()
+        return;
+    } else if (password2 != password) {
+       helpPassword2.innerText = "비밀번호가 일치하지 않습니다."
+       helpPassword2.classList.remove("is-safe")
+       helpPassword2.classList.add("is-danger") 
+        inputPW2.focus()
+        return;
+    } else {
+       helpPassword2.innerText = "비밀번호가 일치합니다."
+       helpPassword2.classList.remove("is-danger")
+       helpPassword2.classList.add("is-success")
+    }
+    if(nickname == "") {
+        helpNickname.innerText = "닉네임을 입력해주세요."
+        helpNickname.classList.remove("is-safe")
+        helpNickname.classList.add("is-danger")
+        inputNick.focus()
+        return;
+    } else {
+        helpNickname.innerText = ""
+    }
     $.ajax({
         type: "POST",
         url: "/sign_up/save",
