@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>team35_project</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+      font-family: 'Jua', sans-serif;
+      }
+      . {
+          padding-left: 50px;
+      }
+
+      .date-time {
+        font-size: 13px;
+    }
+    </style>
+
+    <script>
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/diary",
+                data: {},
+                success: function (response) {
+                    let diaries = response["all_articles"];
+                    console.log(diaries)
+
+                    for (let i = diaries.length-1; i < diaries.length; i--) {
+                        let img = diaries[i]['img'];
+                        let title = diaries[i]["title"];
+                        let place = diaries[i]['place'];
+                        let content = diaries[i]["content"];
+                        let date = diaries[i]['date']
+
+                        let temp_html =
+                            `<div class="card">
+                                <img class="card-img-top" src="${img}" alt="No images">
+                                <div class="card-body">
+                                    <h5 class="card-title">${title}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
+                                    <p class="card-text">${content}</p>
+                                    <p class="date-time">${date}</p>
+                                </div>
+                             </div>`
+
+                        $('#cards-box').append(temp_html)
+                    }
+                },
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="card-columns" id="cards-box">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">a</h5>
+                <p class="card-text">b</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
