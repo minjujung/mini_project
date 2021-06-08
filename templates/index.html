@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>team35_project</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.4;
+            font-family: 'Jua', sans-serif;
+        }
+
+        inner {
+            width: 100%;
+            top: 10px;
+            left: 10px;
+        }
+
+        .header {
+            width: 80%;
+            margin: 10px auto;
+            border-bottom: 1px solid #c8c8c8;
+        }
+
+        .logo {
+
+            width: 150px;
+            height: 150px;
+            display: inline;
+        }
+
+        .btn_containers {
+            display: inline-flex;
+            flex-display: row;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .btn {
+            width: 70px;
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            box-sizing: border-box;
+            display: block;
+            background: lightpink;
+        }
+
+        .visual {
+            display: block;
+        }
+
+        .cards {
+            padding: 0 100px;
+            display: block;
+        }
+
+        img {
+            display: block;
+        }
+
+        .card-title {
+            color: royalblue;
+        }
+
+        .date-time {
+            font-size: 13px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            listing();
+        })
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/diary",
+                data: {},
+                success: function (response) {
+                    let diaries = response["all_articles"];
+                    console.log(diaries)
+
+                    for (let i = diaries.length - 1; i < diaries.length; i--) {
+                        let img = diaries[i]['img'];
+                        let title = diaries[i]["title"];
+                        let place = diaries[i]['place'];
+                        let content = diaries[i]["content"];
+                        let date = diaries[i]['date']
+
+                        let temp_html =
+                            `<div class="card">
+                                <img class="card-img-top" src="${img}" alt="No images">
+                                <div class="card-body">
+                                    <h5 class="card-title">${title}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
+                                    <p class="card-text">${content}</p>
+                                    <p class="date-time">${date}</p>
+                                </div>
+                             </div>`
+
+                        $('#cards-box').append(temp_html)
+                    }
+                },
+            });
+        }
+    
+    </script>
+    <script defer src="/static/js/home.js"></script>
+    <!-- <script defer src="/static/js/signup.js"></script> -->
+
+</head>
+
+<body>
+    <div class="inner">
+        <div class="header">
+            <a href="/">
+                <img class="logo"
+                    src="data:image/png;base64,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"
+                    alt="logo" />
+            </a>
+            <ul class="btn_containers">
+                <li>
+                    <button href="/write" class="diaryBtn btn">plus</button>
+                </li>
+                <li>
+                    <button href="/sign_up" class="signinBtn btn">sign up</button>
+                </li>
+                <li>
+                    <button href="/login" class="btn">Log in</button>
+                </li>
+            </ul>
+        </div>
+
+        <section class="visual">
+            <div class="cards">
+                <div class="card-columns" id="cards-box"></div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
