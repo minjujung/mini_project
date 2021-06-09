@@ -69,15 +69,17 @@ def save_diary():
             'date': postingTime
         }
         db.articles.insert_one(doc)
+
     else:
         doc = {
             'title': title_receive,
             # 'img' : img_receive,
-            'file': 'default file 경로',
+            'file': f'static/defaultImg.jpg',
             'place': place_receive,
             'content': content_receive,
             'date': postingTime
         }
+        db.articles.insert_one(doc)
 
     return jsonify({'msg': '당신은 우리와 함께 갈 수 있습니다!'})
 
