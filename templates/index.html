@@ -56,7 +56,6 @@
         .cards {
             padding: 0 200px;
             display: block;
-       
         }
 
         img {
@@ -88,6 +87,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -106,7 +106,7 @@
 
     <script>
         $(document).ready(function () {
-            listing();
+            // listing();
         })
 
         function toggle_like(diary_id, type) {
@@ -144,57 +144,54 @@
                         $a_like.find("span.like-num").text(response["count"])
                     }
                 })
-        
             }
         }
 
+        // function listing() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "/diary",
+        //         data: {},
+        //         success: function (response) {
+        //                 let diaries = `{{ data }}`
+        //                 console.log(diaries)
 
+        //             for (let i = diaries.length - 1; i < diaries.length; i--) {
+        //                 let img = diaries[i]['img'];
+        //                 let title = diaries[i]["title"];
+        //                 let place = diaries[i]['place'];
+        //                 let content = diaries[i]["content"];
+        //                 let date = diaries[i]['date']
+        //                 let class_heart = diaries[i]['heart_by_me'] ? "fa-heart": "fa-heart-o"
+        //                 let count_heart = diaries[i]['count_heart'];
 
-        function listing() {
-            $.ajax({
-                type: "GET",
-                url: "/diary",
-                data: {},
-                success: function (response) {
-                        let diaries = response["all_articles"];
-                        console.log(diaries)
+        //                 let temp_html =
+        //                     `<div class="card" id="${diaries[i]["_id"]}">
+        //                         <img class="card-img-top" src="${img}" alt="No images">
+        //                         <div class="card-body">
+        //                             <h5 class="card-title">${title}</h5>
+        //                             <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
+        //                             <p class="card-text">${content}</p>
+        //                             <p class="date-time">${date}</p>
+        //                             ${response["result"] == "success" ? 
+        //                             `<nav class="level is-mobile">
+        //                                 <div class="level-left">
+        //                                     <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('${diaries[i]['_id']}', 'heart')">
+        //                                         <span class="icon is-small"><i class="fa ${class_heart}"
+        //                                                                        aria-hidden="true"></i></span>&nbsp;<span class="like-num">${count_heart}</span>
+        //                                     </a>
+        //                                 </div>
+        //                             </nav>` : ""}
+        //                         </div>
+        //                      </div>`
 
-                    for (let i = diaries.length - 1; i < diaries.length; i--) {
-                        let img = diaries[i]['img'];
-                        let title = diaries[i]["title"];
-                        let place = diaries[i]['place'];
-                        let content = diaries[i]["content"];
-                        let date = diaries[i]['date']
-                        let class_heart = diaries[i]['heart_by_me'] ? "fa-heart": "fa-heart-o"
-                        let count_heart = diaries[i]['count_heart'];
+        //                 $('#cards-box').append(temp_html)
 
-                        let temp_html =
-                            `<div class="card" id="${diaries[i]["_id"]}">
-                                <img class="card-img-top" src="${img}" alt="No images">
-                                <div class="card-body">
-                                    <h5 class="card-title">${title}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
-                                    <p class="card-text">${content}</p>
-                                    <p class="date-time">${date}</p>
-                                    ${response["result"] == "success" ? 
-                                    `<nav class="level is-mobile">
-                                        <div class="level-left">
-                                            <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('${diaries[i]['_id']}', 'heart')">
-                                                <span class="icon is-small"><i class="fa ${class_heart}"
-                                                                               aria-hidden="true"></i></span>&nbsp;<span class="like-num">${count_heart}</span>
-                                            </a>
-                                        </div>
-                                    </nav>` : ""}
-                                </div>
-                             </div>`
+        //             }
+        //         },
+        //     });
+        // }
 
-                        $('#cards-box').append(temp_html)
-                    
-                    }
-                },
-            });
-        }
-    
     </script>
     <script defer src="/static/js/link_btn.js"></script>
 </head>
@@ -209,31 +206,62 @@
             </a>
             <ul class="btn_containers">
                 {% if user_info %}
-                    <h3>
+                <h3>
                     {{user_info.nickname}}님, 안녕하세요!
-                    </h3>
-                    <li>
-                        <button href="/write" class="diaryBtn btn">plus</button>
-                    </li>
-                    <li>
-                        <button class="logoutBtn btn">log out</button>
-                    </li>
+                </h3>
+                <li>
+                    <button href="/write" class="diaryBtn btn">plus</button>
+                </li>
+                <li>
+                    <button class="logoutBtn btn">log out</button>
+                </li>
                 {% else %}
-                    <li>
-                        <button href="/sign_up" class="signupBtn btn">sign up</button>
-                    </li>
-                    <li>
-                        <button href="/login" class="loginBtn btn" >Log in</button>
-                    </li>
+                <li>
+                    <button href="/sign_up" class="signupBtn btn">sign up</button>
+                </li>
+                <li>
+                    <button href="/login" class="loginBtn btn">Log in</button>
+                </li>
                 {% endif %}
             </ul>
         </nav>
 
         <section class="visual">
             <div class="cards">
-                <div class="card-columns" id="cards-box"></div>
-            </div>
-        </section>
+                <div class="card-columns" id="cards-box">
+                    {% for diary in data %}
+                    <div class="card" id="{{ diary._id }}">
+                        <img class="card-img-top" src="../static/articleIMGs/{{ diary.img }}" alt="No images">
+                        <div class="card-body">
+                            <h5 class="card-title">{{diary.title}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{diary.place}}</h6>
+                            <p class="card-text">{{diary.content}}</p>
+                            <p class="date-time">{{diary.date}}</p>
+                            {% if user_info %}
+                                <nav class="level is-mobile">
+                                    <div class="level-left">
+                                        <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('{{diary._id}}', 'heart')">
+                                            <span class="icon is-small">
+                                                {% if diary.heart_by_me %}
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                {% else %}
+                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                {% endif %}
+                                            </span>&nbsp;
+                                            <span class="like-num">{{diary.count_heart}}</span>
+                                        </a>
+                                    </div>
+                                </nav>
+                            {% endif %}                        
+
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+    </div>
+    </div>
+    </section>
     </div>
 </body>
 
