@@ -1,6 +1,9 @@
 {% extends 'nav.html' %}
 
     {% block head %}
+        <link rel="stylesheet" href="../static/css/diary.css">
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
         <script>
             $(document).ready(function () {
                 bsCustomFileInput.init()
@@ -48,6 +51,7 @@
                 }
             }
         </script>
+
     {% endblock head %}
 {% block body %}
 {{ super() }}

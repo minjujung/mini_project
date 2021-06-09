@@ -1,25 +1,33 @@
-   * {
-            font-family: "Jua", sans-serif;
-        }
 
-        .posting-box {
-            width: 500px;
-            margin-top: 20px;
-        }
+.jumbotron-fluid {
+    background:white;
+}
 
-        .wrap {
-            width: 900px;
-            margin: auto;
-        }
+/* .custom-file-label {
+    background-color : #ffcdd2;
+} */
 
-        .container {
-            padding-left: 50px;
-        }
+.posting-box {
+  width: 500px;
+  margin-top: 20px;
+}
 
-        .posting-box>.custom-file {
-            margin-bottom: 20px;
-        }
+.jumbotron-back {
+    background: white;
+}
+.wrap {
+  width: 900px;
+  margin: auto;
+}
 
-        .date-time {
-            font-size: 13px;
-        }
+.container {
+  padding-left: 50px;
+}
+
+.posting-box > .custom-file {
+  margin-bottom: 20px;
+}
+
+.date-time {
+  font-size: 13px;
+}
