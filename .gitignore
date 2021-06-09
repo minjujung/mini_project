@@ -1,7 +1,7 @@
-/__pycache__
-/node_modules
-/templates/index
-/static/js
+__pycache__
+templates/index.html
+static/js/
+
 *.log
 direction
 run
