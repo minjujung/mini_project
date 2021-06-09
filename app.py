@@ -17,19 +17,14 @@ client = MongoClient('localhost', 27017)
 db = client.team35_db
 
 #---------------------[main page]---------------------#
-
-
 @app.route('/')
 def main():
     return render_template("index.html")
 
 #---------------------[write page]---------------------#
-
-
 @app.route('/write')
 def write():
     return render_template("diary.html")
-
 
 @app.route('/diary')
 def listing():
@@ -38,54 +33,73 @@ def listing():
 
 
 @app.route('/diary', methods=['POST'])
-def save_diary():
+def saveDiary():
     today = datetime.now()
-
+    # 타이틀
     title_receive = request.form['title_give']
     if not title_receive:
-        title_receive = today.strftime('%Y.%m.%d %H:%M')
+        title_receive = 'default title'
+        # title_receive = today.strftime('%Y.%m.%d %H:%M')
+    # 장소
     place_receive = request.form['place_give']
     if not place_receive:
-        place_receive = '디폴트'
+        place_receive = 'default place'
+    # 내용
     content_receive = request.form['content_give']
-    if not place_receive:
-        place_receive = '디폴트'
+    if not content_receive:
+        content_receive = 'default content'
+    # 포스팅 시간
     postingTime = today.strftime('%Y.%m.%d %H:%M')
 
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
     file = request.files["file_give"]
 
-    if file:
-        filename = f'file-{mytime}'
-        extension = file.filename.split('.')[-1]
-        save_to = f'static/articleIMGs/{filename}.{extension}'
-        file.save(save_to)
+    filename = f'file-{mytime}'
+    extension = file.filename.split('.')[-1]
+    save_to = f'static/articleIMGs/{filename}.{extension}'
+    file.save(save_to)
 
-        doc = {
-            'title': title_receive,
-            'file': f'{filename}.{extension}',
-            'place': place_receive,
-            'content': content_receive,
-            'date': postingTime
-        }
-        db.articles.insert_one(doc)
+    doc = {
+        'title': title_receive,
+        'file': f'{filename}.{extension}',
+        'place': place_receive,
+        'content': content_receive,
+        'date': postingTime
+    }
+    db.articles.insert_one(doc)
+    return jsonify({'msg': '당신은 우리와 함께 갈 수 있습니다!'})
 
-    else:
-        doc = {
-            'title': title_receive,
-            # 'img' : img_receive,
-            'file': f'static/defaultImg.jpg',
-            'place': place_receive,
-            'content': content_receive,
-            'date': postingTime
-        }
-        db.articles.insert_one(doc)
 
+@app.route('/defaultDiary', methods=['POST'])
+def saveDefaultDiary():
+    today = datetime.now()
+    # 타이틀
+    title_receive = request.form['title_give']
+    if not title_receive:
+        title_receive = 'default title'
+        # title_receive = today.strftime('%Y.%m.%d %H:%M')
+    # 장소
+    place_receive = request.form['place_give']
+    if not place_receive:
+        place_receive = 'default place'
+    # 내용
+    content_receive = request.form['content_give']
+    if not content_receive:
+        content_receive = 'default content'
+    # 포스팅 시간
+    postingTime = today.strftime('%Y.%m.%d %H:%M')
+    file_receive = request.form['file_give']
+    doc = {
+        'title': title_receive,
+        'file': file_receive,
+        'place': place_receive,
+        'content': content_receive,
+        'date': postingTime
+    }
+    db.articles.insert_one(doc)
     return jsonify({'msg': '당신은 우리와 함께 갈 수 있습니다!'})
 
 #---------------------[sign up page]---------------------#
-
-
 @app.route('/sign_up')
 def signUp():
     # msg = request.args.get("msg")

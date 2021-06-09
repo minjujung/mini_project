@@ -36,51 +36,22 @@
             // listing()
         })
 
-        function listing() {
-            $.ajax({
-                type: "GET",
-                url: "/diary",
-                data: {},
-                success: function (response) {
-                    let diaries = response["all_articles"];
-                    for (let i = diaries.length - 1; i >= 0; i--) {
-                        let file = diaries[i]['file'];
-                        let title = diaries[i]["title"];
-                        let place = diaries[i]['place'];
-                        let content = diaries[i]["content"];
-                        let date = diaries[i]['date']
-
-                        let temp_html = `<div class="card">
-                <img class="card-img-top" src="../static/articleIMGs/${file}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
-                    <p class="card-text">${content}</p>
-                    <p class="date-time">${date}</p>
-                </div>
-                </div>`
-                        $('#cards-box').append(temp_html)
-                    }
-                },
-            });
-        }
-
         function saving() {
             let title = $('#title').val()
             let place = $('#place').val()
             let content = $("#content").val()
             let file = $('#file')[0].files[0]
-            // 빈 파일이 어떤 값인지도 확인해야 한다.
             let form_data = new FormData()
 
             form_data.append("title_give", title)
             form_data.append("place_give", place)
             form_data.append("content_give", content)
-            form_data.append("file_give", file)
-
-            $.ajax({
+            
+            if ($('#file')[0].files.length == 0) {
+                form_data.append("file_give", 'default.jpg')
+                $.ajax({
                 type: "POST",
-                url: "/diary",
+                url: "/defaultDiary",
                 data: form_data,
                 cache: false,
                 contentType: false,
@@ -88,8 +59,23 @@
                 success: function (response) {
                     alert(response["msg"])
                     window.location.href = "/";
-                }
-            });
+                    }
+                });
+            } else {
+                form_data.append("file_give", file)
+                $.ajax({
+                    type: "POST",
+                    url: "/diary",
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert(response["msg"])
+                        window.location.href = "/";
+                    }
+                });
+            }
         }
     </script>
     <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
@@ -112,7 +98,8 @@
                         <input type="file" class="custom-file-input" id="file">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="content" rows="3" placeholder="내용 입력"></textarea>
+                        <textarea class="form-control" accept="image/*" id="content" rows="3"
+                            placeholder="내용 입력"></textarea>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="saving()">저장하기</button>
                 </div>
