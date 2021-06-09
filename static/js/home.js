@@ -1,10 +1,10 @@
-const signinBtn = document.querySelector(".signinBtn");
+const signupBtn = document.querySelector(".signupBtn");
 
-const goToLogin = () => {
+const goToSignup = () => {
   window.location.href = "/sign_up";
 };
 
-signinBtn.addEventListener("click", goToLogin);
+signupBtn.addEventListener("click", goToSignup);
 
 const diaryBtn = document.querySelector('.diaryBtn')
 
@@ -13,3 +13,12 @@ const goToDiary = () => {
 };
 
 diaryBtn.addEventListener("click", goToDiary);
+
+
+const loginBtn = document.querySelector('.loginBtn')
+
+const goToLogin = () => {
+  window.location.href = "/login";
+};
+
+loginBtn.addEventListener("click", goToLogin);
