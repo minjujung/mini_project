@@ -40,31 +40,73 @@ def write():
     except jwt.exceptions.DecodeError:
         return render_template("index.html")
 
-@app.route('/diary')
-def listing():
-    diaries = list(db.articles.find({}, {'_id': False}))
-    return jsonify({'all_articles': diaries})
-
 @app.route('/diary', methods=['POST'])
 def save_diary():
-    title_receive = request.form['title_give']
-    img_receive = request.form['image_give']
-    place_receive = request.form['place_give']
-    content_receive = request.form['content_give']
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        title_receive = request.form['title_give']
+        img_receive = request.form['image_give']
+        place_receive = request.form['place_give']
+        content_receive = request.form['content_give']
 
-    today = datetime.now()
-    postingTime = today.strftime('%Y.%m.%d %H:%M')
+        today = datetime.now()
+        postingTime = today.strftime('%Y.%m.%d %H:%M')
 
-    doc = {
-        'title': title_receive,
-        'img' : img_receive,
-        'place' : place_receive,
-        'content': content_receive,
-        'date': postingTime
-    }
-    db.articles.insert_one(doc)
+        doc = {
+            'username': user_info["username"],
+            'title': title_receive,
+            'img' : img_receive,
+            'place' : place_receive,
+            'content': content_receive,
+            'date': postingTime
+        }
+        db.articles.insert_one(doc)
+        return jsonify({"result": "success",'msg': '당신은 우리와 함께 갈 수 있습니다'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template("index.html")
 
-    return jsonify({'msg': '당신은 우리와 함께 갈 수 있습니다'})
+@app.route('/diary', methods=["GET"])
+def listing():
+    token_receive = request.cookies.get('mytoken')
+    if token_receive:
+        try:
+            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            diaries = list(db.articles.find({}))
+            for diary in diaries:
+                diary["_id"] = str(diary["_id"])
+                diary["count_heart"] = db.likes.count_documents({"post_id": diary["_id"], "type": "heart"})
+                diary["heart_by_me"] = bool(db.likes.find_one({"post_id": diary["_id"], "type": "heart", "username": payload['id']}))
+            return jsonify({"result": "success", "msg": "포스팅을 가져왔습니다.", "all_articles": diaries})
+        except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+            return render_template("index.html")    
+    else:
+        diaries = list(db.articles.find({}, {'_id': False}))
+    return jsonify({"result": "noheart", 'all_articles': diaries})
+
+@app.route('/update_like', methods=['POST'])
+def update_like():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        diary_id_receive = request.form["diary_id_give"]
+        type_receive = request.form["type_give"]
+        action_receive = request.form["action_give"]
+        doc = {
+            "diary_id": diary_id_receive,
+            "username": user_info["username"],
+            "type": type_receive
+        }
+        if action_receive =="like":
+            db.likes.insert_one(doc)
+        else:
+            db.likes.delete_one(doc)
+        count = db.likes.count_documents({"diary_id": diary_id_receive, "type": type_receive})
+        return jsonify({"result": "success", 'msg': 'updated', "count": count})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template("index.html")
 
 @app.route('/sign_up')
 def signUp():

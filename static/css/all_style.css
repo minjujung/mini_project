@@ -1,6 +1,11 @@
 * {
     font-family: 'Gaegu', cursive;
 }
+
 body, button, input, optgroup, select, textarea {
+    font-family: 'Gaegu', cursive;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-family: 'Gaegu', cursive;
 }

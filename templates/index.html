@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -107,14 +108,56 @@
         $(document).ready(function () {
             listing();
         })
+
+        function toggle_like(diary_id, type) {
+            console.log(diary_id, type)
+            let $a_like = $(`#${diary_id} a[aria-label='heart']`)
+            let $i_like = $a_like.find("i")
+            console.log($i_like)
+            if ($i_like.hasClass("fa-heart")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/update_like",
+                    data: {
+                        diary_id_give: diary_id,
+                        type_give: type,
+                        action_give: "unlike"
+                    },
+                    success: function (response) {
+                        console.log("unlike")
+                        $i_like.addClass("fa-heart-o").removeClass("fa-heart")
+                        $a_like.find("span.like-num").text(response["count"])
+                    }
+                })
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/update_like",
+                    data: {
+                        diary_id_give: diary_id,
+                        type_give: type,
+                        action_give: "like"
+                    },
+                    success: function (response) {
+                        console.log("like")
+                        $i_like.addClass("fa-heart").removeClass("fa-heart-o")
+                        $a_like.find("span.like-num").text(response["count"])
+                    }
+                })
+        
+            }
+        }
+
+
+
         function listing() {
             $.ajax({
                 type: "GET",
                 url: "/diary",
                 data: {},
                 success: function (response) {
-                    let diaries = response["all_articles"];
-                    console.log(diaries)
+                        let diaries = response["all_articles"];
+                        console.log(diaries)
 
                     for (let i = diaries.length - 1; i < diaries.length; i--) {
                         let img = diaries[i]['img'];
@@ -122,19 +165,31 @@
                         let place = diaries[i]['place'];
                         let content = diaries[i]["content"];
                         let date = diaries[i]['date']
+                        let class_heart = diaries[i]['heart_by_me'] ? "fa-heart": "fa-heart-o"
+                        let count_heart = diaries[i]['count_heart'];
 
                         let temp_html =
-                            `<div class="card">
+                            `<div class="card" id="${diaries[i]["_id"]}">
                                 <img class="card-img-top" src="${img}" alt="No images">
                                 <div class="card-body">
                                     <h5 class="card-title">${title}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">${place}</h6>
                                     <p class="card-text">${content}</p>
                                     <p class="date-time">${date}</p>
+                                    ${response["result"] == "success" ? 
+                                    `<nav class="level is-mobile">
+                                        <div class="level-left">
+                                            <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('${diaries[i]['_id']}', 'heart')">
+                                                <span class="icon is-small"><i class="fa ${class_heart}"
+                                                                               aria-hidden="true"></i></span>&nbsp;<span class="like-num">${count_heart}</span>
+                                            </a>
+                                        </div>
+                                    </nav>` : ""}
                                 </div>
                              </div>`
 
                         $('#cards-box').append(temp_html)
+                    
                     }
                 },
             });
