@@ -2,6 +2,10 @@
 <html lang="ko">
 
 <head>
+    <meta property="og:title" content="PIGRUN | 오늘도 돼지런" />
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}" />
+    <meta property="og:description" content="뱃살을 키우자" />
+    <link rel="shortcut icon" href="../static/favicon_3.ico" type="image/x-icon">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,13 +38,10 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
     <script defer src="/static/js/link_btn.js"></script>
 
     <title> PIGRUN | 오늘도 돼지런 </title>
 
-    <script defer src="/static/js/link_btn.js"></script>
-    <link rel="shortcut icon" href="../static/favicon_3.ico" type="image/x-icon">
     {% block head %}
     {# 템플릿 head #}
     {% endblock %}
