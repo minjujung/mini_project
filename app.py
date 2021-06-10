@@ -42,7 +42,7 @@ def main():
 def delete_file():
     id_receive = request.form['id_give']
     db.articles.delete_one({'_id': ObjectId(id_receive) })
-    return jsonify({'result': 'success', 'msg': f'포스팅이 삭제되었습니다!'})
+    return jsonify({'result': 'success', 'msg': '또 적으실거죠?ㅠㅠ'})
 
 #---------------------[write page]---------------------#
 @app.route('/write')
@@ -65,14 +65,14 @@ def save_diary():
         user_info = db.users.find_one({"username": payload["id"]})
         today = datetime.now()
         title_receive = request.form['title_give']
-        if not title_receive:
-            title_receive = 'default title'
+        # if not title_receive:
+        #     title_receive = 'default title'
         place_receive = request.form['place_give']
-        if not place_receive:
-            place_receive = 'default place'        
+        # if not place_receive:
+        #     place_receive = 'default place'        
         content_receive = request.form['content_give']
-        if not content_receive:
-            content_receive = 'default content'
+        # if not content_receive:
+        #     content_receive = 'default content'
         postingTime = today.strftime('%Y.%m.%d %H:%M')
 
         mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
@@ -92,7 +92,7 @@ def save_diary():
             'date': postingTime
         }
         db.articles.insert_one(doc)
-        return jsonify({"result": "success",'msg': '당신은 우리와 함께 갈 수 있습니다'})
+        return jsonify({"result": "success",'msg': '맛있게 먹으면 0칼로리!'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
 
@@ -104,14 +104,14 @@ def saveDefaultDiary():
         user_info = db.users.find_one({"username": payload["id"]})
         today = datetime.now()
         title_receive = request.form['title_give']
-        if not title_receive:
-            title_receive = 'default title'
+        # if not title_receive:
+        #     title_receive = 'default title'
         place_receive = request.form['place_give']
-        if not place_receive:
-            place_receive = 'default place'        
+        # if not place_receive:
+        #     place_receive = 'default place'        
         content_receive = request.form['content_give']
-        if not content_receive:
-            content_receive = 'default content'
+        # if not content_receive:
+        #     content_receive = 'default content'
         postingTime = today.strftime('%Y.%m.%d %H:%M')
 
         file_receive = request.form['file_give']
@@ -125,7 +125,7 @@ def saveDefaultDiary():
             'date': postingTime
         }
         db.articles.insert_one(doc)
-        return jsonify({"result": "success",'msg': '당신은 우리와 함께 갈 수 있습니다'})
+        return jsonify({"result": "success",'msg': '맛있게 먹으면 0칼로리!'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
 
@@ -172,7 +172,7 @@ def sign_up():
         "password": password_hash                                  # 비밀번호
     }
     db.users.insert_one(doc)
-    return jsonify({'result': 'success'})
+    return jsonify({'result': '돼지런 스타트!!'})
 
 #---------------------[login page]---------------------#
 @app.route('/login')

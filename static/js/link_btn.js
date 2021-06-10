@@ -34,7 +34,7 @@ const logoutBtn = document.querySelector(".logoutBtn");
 
 const signout = () => {
   $.removeCookie("mytoken", { path: "/" });
-  alert("로그아웃!");
+  alert("내일도 돼지런!");
   window.location.href = "/";
 };
 

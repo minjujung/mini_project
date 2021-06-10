@@ -17,20 +17,20 @@
                 {{user_info.nickname}}님, 안녕하세요!
             </h3>
             <li>
-                <button href="/write" class="diaryBtn btn">plus</button>
+                <button href="/write" class="diaryBtn btn">추가하기</button>
             </li>
             <li>
-                <button class="logoutBtn btn">log out</button>
+                <button class="logoutBtn btn">로그아웃</button>
             </li>
             {% else %}
             <h3 class="nickname">
                 로그인하고 사진을 올려볼까요?
             </h3>
             <li>
-                <button href="/sign_up" class="signupBtn btn">sign up</button>
+                <button href="/sign_up" class="signupBtn btn">회원가입</button>
             </li>
             <li>
-                <button href="/login" class="loginBtn btn">Log in</button>
+                <button href="/login" class="loginBtn btn">로그인</button>
             </li>
             {% endif %}
         </ul>

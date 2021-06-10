@@ -138,7 +138,7 @@ const signUpClick = () => {
       nickname_give: nickname,
     },
     success: function (response) {
-      alert("회원가입을 축하드립니다!");
+      alert(response["result"]);
       window.location.replace("/login");
     },
   });
