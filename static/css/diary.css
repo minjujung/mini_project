@@ -38,3 +38,7 @@ body {
 .date-time {
   font-size: 13px;
 }
+
+.btnSave {
+  margin-left: 85%;
+}
