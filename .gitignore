@@ -2,5 +2,3 @@ __pycache__
 *.log
 env.sh
 
-/static/articleIMGs/
-! default.jpg
