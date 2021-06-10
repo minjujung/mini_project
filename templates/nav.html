@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <nav class="header">
-        <a href="/">
-            <img class="logo"
-                src="../static/logo.png"
-                alt="logo" />
-        </a>
-        <ul class="btn_containers">
-            {% if user_info %}
-            <h3 class="nickname">
-                {{user_info.nickname}}님, 안녕하세요!
-            </h3>
-            <li>
-                <button href="/write" class="diaryBtn btn">plus</button>
-            </li>
-            <li>
-                <button class="logoutBtn btn">log out</button>
-            </li>
-            {% else %}
-            <li>
-                <button href="/sign_up" class="signupBtn btn">sign up</button>
-            </li>
-            <li>
-                <button href="/login" class="loginBtn btn">Log in</button>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+<nav class="header">
+    <a href="/">
+        <img class="logo" src="../static/logo.png" alt="logo" />
+    </a>
+    <ul class="btn_containers">
+        {% if user_info %}
+        <h3 class="nickname">
+            {{user_info.nickname}}님, 안녕하세요!
+        </h3>
+        <li>
+            <button href="/write" class="diaryBtn btn">plus</button>
+        </li>
+        <li>
+            <button class="logoutBtn btn">log out</button>
+        </li>
+        {% else %}
+        <li>
+            <button href="/sign_up" class="signupBtn btn">sign up</button>
+        </li>
+        <li>
+            <button href="/login" class="loginBtn btn">Log in</button>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock body %}

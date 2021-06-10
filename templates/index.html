@@ -111,43 +111,43 @@
 
 {% block body %}
 {{ super() }}
-    <div class="inner">    
-        <section class="visual">
-            <div class="cards">
-                <div class="card-columns" id="cards-box">
-                    {% for diary in data %}
-                    <div class="card" id="{{ diary._id }}">
-                        <img class="card-img-top" src="../static/articleIMGs/{{ diary.img }}" alt="No images">
-                        <div class="card-body">
-                            <h5 class="card-title">{{diary.title}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{diary.place}}</h6>
-                            <p class="card-text">{{diary.content}}</p>
-                            <p class="date-time">{{diary.date}}</p>
-                            {% if user_info %}
-                            <nav class="level is-mobile">
-                                <div class="level-left">
-                                    <a class="level-item is-sparta" aria-label="heart"
-                                        onclick="toggle_like('{{diary._id}}', 'heart')">
-                                        <span class="icon is-small">
-                                            {% if diary.heart_by_me %}
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                            {% else %}
-                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            {% endif %}
-                                        </span>&nbsp;
-                                        <span class="like-num">{{diary.count_heart}}</span>
-                                    </a>
-                                </div>
-                            </nav>
-                            {% endif %}
-    
-    
-                        </div>
+<div class="inner">
+    <section class="visual">
+        <div class="cards">
+            <div class="card-columns" id="cards-box">
+                {% for diary in data %}
+                <div class="card" id="{{ diary._id }}">
+                    <img class="card-img-top" src="../static/articleIMGs/{{ diary.img }}" alt="No images">
+                    <div class="card-body">
+                        <h5 class="card-title">{{diary.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{diary.place}}</h6>
+                        <p class="card-text">{{diary.content}}</p>
+                        <p class="date-time">{{diary.date}}</p>
+                        {% if user_info %}
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item is-sparta" aria-label="heart"
+                                    onclick="toggle_like('{{diary._id}}', 'heart')">
+                                    <span class="icon is-small">
+                                        {% if diary.heart_by_me %}
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        {% else %}
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </span>&nbsp;
+                                    <span class="like-num">{{diary.count_heart}}</span>
+                                </a>
+                            </div>
+                        </nav>
+                        {% endif %}
+
+
                     </div>
-                    {% endfor %}
-    
                 </div>
+                {% endfor %}
+
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 {% endblock body %}

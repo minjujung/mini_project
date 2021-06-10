@@ -5,7 +5,6 @@ import hashlib
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
-from flask.helpers import flash
 
 #---------------------[app 설정]---------------------#
 app = Flask(__name__)
@@ -49,24 +48,6 @@ def write():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return render_template("index.html")
-
-# @app.route('/diary', methods=["GET"])
-# def listing():
-#     token_receive = request.cookies.get('mytoken')
-#     if token_receive:
-#         try:
-#             payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-#             diaries = list(db.articles.find({}))
-#             for diary in diaries:
-#                 diary["_id"] = str(diary["_id"])
-#                 diary["count_heart"] = db.likes.count_documents({"post_id": diary["_id"], "type": "heart"})
-#                 diary["heart_by_me"] = bool(db.likes.find_one({"post_id": diary["_id"], "type": "heart", "username": payload['id']}))
-#             return render_template("index.html", data = diaries) 
-#         except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-#             return render_template("index.html")    
-#     else:
-#         diaries = list(db.articles.find({}, {'_id': False}))
-#         return jsonify({"result": "noheart", 'all_articles': diaries}, data = diaries)
 
 @app.route('/diary', methods=['POST'])
 def save_diary():
