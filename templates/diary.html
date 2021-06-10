@@ -1,81 +1,111 @@
 {% extends 'nav.html' %}
 
-    {% block head %}
-        <script>
-            $(document).ready(function () {
-                bsCustomFileInput.init()
-                // listing()
-            })
-            function saving() {
-                let title = $('#title').val()
-                let place = $('#place').val()
-                let content = $("#content").val()
-                let file = $('#file')[0].files[0]
-                let form_data = new FormData()
+{% block head %}
+<!-- style -->
+<style>
+    .section {
+        padding: 1rem 1.5rem;
+        max-width: 700px;
+        margin: auto;
+    }
 
-                form_data.append("title_give", title)
-                form_data.append("place_give", place)
-                form_data.append("content_give", content)
+    .title {
+        font-weight: 800;
+        font-size: 5rem;
+    }
 
-                if ($('#file')[0].files.length == 0) {
-                    form_data.append("file_give", 'default.jpg')
-                    $.ajax({
-                        type: "POST",
-                        url: "/defaultDiary",
-                        data: form_data,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            alert(response["msg"])
-                            window.location.href = "/";
-                        }
-                    });
-                } else {
-                    form_data.append("file_give", file)
-                    $.ajax({
-                        type: "POST",
-                        url: "/diary",
-                        data: form_data,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            alert(response["msg"])
-                            window.location.href = "/";
-                        }
-                    });
+    .subtitle {
+        font-size: 2rem;
+    }
+
+    .btnSave {
+        margin-left: 85%;
+    }
+</style>
+<!-- js -->
+<link rel="stylesheet" href="../static/css/diary.css">
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+        // listing()
+    })
+    function saving() {
+        let title = $('#title').val()
+        let place = $('#place').val()
+        let content = $("#content").val()
+        let file = $('#file')[0].files[0]
+        let form_data = new FormData()
+
+        form_data.append("title_give", title)
+        form_data.append("place_give", place)
+        form_data.append("content_give", content)
+
+        if ($('#file')[0].files.length == 0) {
+            form_data.append("file_give", 'default.jpg')
+            $.ajax({
+                type: "POST",
+                url: "/defaultDiary",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = "/";
                 }
-            }
-        </script>
-    {% endblock head %}
+            });
+        } else {
+            form_data.append("file_give", file)
+            $.ajax({
+                type: "POST",
+                url: "/diary",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = "/";
+                }
+            });
+        }
+    }
+</script>
+
+{% endblock head %}
+
 {% block body %}
 {{ super() }}
+<section>
+    <div class=" has-text-centered" style="padding-bottom:1rem;margin:auto;">
+        <h1 class="title ">오늘도 돼지런</h1>
+        <h3 class="subtitle is-sparta">하루 하루 부지런하게 먹자!</h3>
+    </div>
+</section>
 
-    
-    <div class="wrap">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h2>오늘도 돼지런</h2>
-                <div class="posting-box">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="title" placeholder="타이틀" />
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="place" placeholder="어디서 드셨나요?" />
-                    </div>
-                    <div class="custom-file">
-                        <label class="custom-file-label" for="file"></label>
-                        <input type="file" class="custom-file-input" id="file">
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea class="form-control" accept="image/*" id="content" rows="3"
-                            placeholder="내용 입력"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="saving()">저장하기</button>
-                </div>
+<div class="wrap">
+    <div class="container">
+        <div class="posting-box">
+            <div class="form-group">
+                <input type="text" class="form-control" id="title" placeholder="타이틀" />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="place" placeholder="어디서 드셨나요?" />
+            </div>
+            <div class="custom-file">
+                <label class="custom-file-label" for="file" style="font-size:1rem">
+                    사진을 올려주세요 (파일이 없으면 기본이미지가 올라갑니다.)
+                </label>
+                <input type="file" class="custom-file-input" id="file">
             </div>
 
-{% endblock body %}
+            <div class="form-group">
+                <textarea class="form-control" accept="image/*" id="content" rows="3" placeholder="내용 입력"></textarea>
+            </div>
+            <button type="button" class="btn btnSave" onclick="saving()">저장하기</button>
+        </div>
+    </div>
 
+    {% endblock body %}
