@@ -1,7 +1,7 @@
 __pycache__
-env
-
-static/articleIMGs/
-!default.jpg
 *.log
 run
+env.sh
+
+/static/articleIMGs/
+! default.jpg
