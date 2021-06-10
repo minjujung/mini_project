@@ -107,6 +107,20 @@
             })
         }
     }
+    function deletePage(id) {
+        let post_id = id
+        $.ajax({
+            type: "POST",
+            url: "/delete",
+            data: { id_give: post_id },
+            success: function(response){
+                alert(response['msg'])
+                window.location.href = "/"
+            }
+          })
+    }
+
+
 </script>
 
 {% endblock %}
@@ -140,6 +154,7 @@
                                         <span class="like-num">{{diary.count_heart}}</span>
                                     </a>
                                 </div>
+                                 <button id="btn-delete" class="btn delete" style="display:inline-flex" onclick="deletePage(`{{ diary._id }}`)">delete</button>
                             </nav>
                             {% endif %}
     

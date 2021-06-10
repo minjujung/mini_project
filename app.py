@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import jwt
 import datetime
 import hashlib
+from bson import ObjectId
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
@@ -162,6 +163,14 @@ def update_like():
         return jsonify({"result": "success", 'msg': 'updated', "count": count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
+
+@app.route('/delete', methods=['POST'])
+def delete_file():
+    # 단어 삭제하기
+    id_receive = request.form['id_give']
+    db.articles.delete_one({'_id': ObjectId(id_receive) })
+    return jsonify({'result': 'success', 'msg': f'포스팅이 삭제되었습니다!'})
+
 
 #---------------------[sign up page]---------------------#
 @app.route('/sign_up')
