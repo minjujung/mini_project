@@ -37,6 +37,13 @@ def main():
         diaries = list(db.articles.find({}, {'_id': False}))
     return render_template("index.html", data = diaries)
 
+# 포스팅 삭제하기
+@app.route('/delete', methods=['POST'])
+def delete_file():
+    id_receive = request.form['id_give']
+    db.articles.delete_one({'_id': ObjectId(id_receive) })
+    return jsonify({'result': 'success', 'msg': f'포스팅이 삭제되었습니다!'})
+
 #---------------------[write page]---------------------#
 @app.route('/write')
 def write():
@@ -122,7 +129,6 @@ def saveDefaultDiary():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
 
-
 @app.route('/update_like', methods=['POST'])
 def update_like():
     token_receive = request.cookies.get('mytoken')
@@ -145,14 +151,6 @@ def update_like():
         return jsonify({"result": "success", 'msg': 'updated', "count": count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
-
-@app.route('/delete', methods=['POST'])
-def delete_file():
-    # 단어 삭제하기
-    id_receive = request.form['id_give']
-    db.articles.delete_one({'_id': ObjectId(id_receive) })
-    return jsonify({'result': 'success', 'msg': f'포스팅이 삭제되었습니다!'})
-
 
 #---------------------[sign up page]---------------------#
 @app.route('/sign_up')
@@ -202,7 +200,6 @@ def sign_in():
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
-
     
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
