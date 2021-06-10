@@ -1,29 +1,25 @@
-.jumbotron-fluid {
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background: white;
-    border-radius: .3rem;
+body {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-.posting-box {
-    width: 500px;
-    margin-top: 20px;
-    background-color: white;
+.jumbotron-back {
+  background: white;
 }
-
 .wrap {
-    width: 900px;
-    margin: auto;
+  margin: auto;
 }
 
 .container {
-    padding-left: 50px;
+  width: 500px;
+  margin: auto;
 }
 
-.posting-box>.custom-file {
-    margin-bottom: 20px;
+.posting-box > .custom-file {
+  margin-bottom: 20px;
 }
 
 .date-time {
-    font-size: 13px;
+  font-size: 13px;
 }

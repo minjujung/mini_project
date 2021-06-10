@@ -2,10 +2,10 @@ from pymongo import MongoClient
 import jwt
 import datetime
 import hashlib
+from bson import ObjectId
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
-from flask.helpers import flash
 
 #---------------------[app 설정]---------------------#
 app = Flask(__name__)
@@ -14,6 +14,7 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 SECRET_KEY = 'SPARTA'
 #---------------------[db 연결]---------------------#
 client = MongoClient('localhost', 27017)
+# client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.team35_db
 
 #---------------------[main page]---------------------#
@@ -36,6 +37,13 @@ def main():
         diaries = list(db.articles.find({}, {'_id': False}))
     return render_template("index.html", data = diaries)
 
+# 포스팅 삭제하기
+@app.route('/delete', methods=['POST'])
+def delete_file():
+    id_receive = request.form['id_give']
+    db.articles.delete_one({'_id': ObjectId(id_receive) })
+    return jsonify({'result': 'success', 'msg': f'포스팅이 삭제되었습니다!'})
+
 #---------------------[write page]---------------------#
 @app.route('/write')
 def write():
@@ -48,24 +56,6 @@ def write():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return render_template("index.html")
-
-# @app.route('/diary', methods=["GET"])
-# def listing():
-#     token_receive = request.cookies.get('mytoken')
-#     if token_receive:
-#         try:
-#             payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-#             diaries = list(db.articles.find({}))
-#             for diary in diaries:
-#                 diary["_id"] = str(diary["_id"])
-#                 diary["count_heart"] = db.likes.count_documents({"post_id": diary["_id"], "type": "heart"})
-#                 diary["heart_by_me"] = bool(db.likes.find_one({"post_id": diary["_id"], "type": "heart", "username": payload['id']}))
-#             return render_template("index.html", data = diaries) 
-#         except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-#             return render_template("index.html")    
-#     else:
-#         diaries = list(db.articles.find({}, {'_id': False}))
-#         return jsonify({"result": "noheart", 'all_articles': diaries}, data = diaries)
 
 @app.route('/diary', methods=['POST'])
 def save_diary():
@@ -139,7 +129,6 @@ def saveDefaultDiary():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template("index.html")
 
-
 @app.route('/update_like', methods=['POST'])
 def update_like():
     token_receive = request.cookies.get('mytoken')
@@ -211,7 +200,6 @@ def sign_in():
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
-
     
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():

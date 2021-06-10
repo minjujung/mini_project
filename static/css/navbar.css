@@ -49,23 +49,23 @@
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 .btn {
-    width: 70px;
-    margin: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    font-weight: 800;
-    text-align: center;
-    cursor: pointer;
-    box-sizing: border-box;
-    display: block;
-    background: lightpink;
-    opacity: 0.7;
-    transition: all 0.3s;
+  width: 70px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: block;
+  background: lightpink;
+  opacity: 0.7;
+  transition: all 0.3s;
 }
 
 .btn:hover {

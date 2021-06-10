@@ -3,14 +3,9 @@
 {% block head %}
 <script defer src="/static/js/signup.js"></script>
 <style>
-    body {
-        background-color: RGBA(232, 52, 78, 0.2);
-        min-height: 100vh;
-    }
-
     .section {
         padding: 1rem 1.5rem;
-        max-width: 750px;
+        max-width: 700px;
         margin: auto;
     }
 
@@ -23,24 +18,20 @@
         font-size: 2rem;
     }
 
-    .is-sparta {
-        color: #e8344e !important;
-    }
-
     .button.is-sparta {
-        background-color: #e8344e;
+        width: 100%;
+        margin: auto;
+        background-color: lightpink;
         border-color: transparent;
-        color: #fff !important;
     }
 
-    .button.is-sparta.is-outlined {
-        background-color: transparent;
-        border-color: #e8344e;
-        color: #e8344e !important;
+    .button.is-sparta:hover {
+        opacity: 1;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 5px 0px;
     }
 
-    .help {
-        color: gray;
+    .is-danger {
+        font-size: 1rem;
     }
 
     .is-hidden {
@@ -91,17 +82,17 @@
 {% endblock head %}
 
 {% block body %}
-    {{super()}}
-    <section class="hero is-white">
-        <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-            <h1 class="title is-sparta">SWEETER</h1>
-            <h3 class="subtitle is-sparta">세상을 달달하게</h3>
-        </div>
-    </section>
+{{super()}}
+<section>
+    <div class=" has-text-centered" style="padding-bottom:1rem;margin:auto;">
+        <h1 class="title ">오늘도 돼지런</h1>
+        <h3 class="subtitle is-sparta">하루 하루 부지런하게 먹자!</h3>
+    </div>
+</section>
 
 <section class="section">
     <div class="container">
-        <div class="box" style="max-width: 480px;margin:auto">
+        <div class="box" style="max-width: 400px;margin:auto">
             <article class="media">
                 <div class="media-content">
                     <div class="content">
@@ -129,7 +120,7 @@
                     </div>
                     <div id="div-sign-in-or-up" class="has-text-centered">
                         <nav class="level is-mobile">
-                            <button class="level-item button is-sparta" onclick="sign_in()">
+                            <button class="btn level-item button is-sparta " onclick="sign_in()">
                                 로그인
                             </button>
 
@@ -147,5 +138,3 @@
     </div>
 </section>
 {% endblock body %}
-
-    

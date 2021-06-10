@@ -39,6 +39,19 @@
             })
         }
     }
+    function deletePage(id) {
+        let post_id = id
+        $.ajax({
+            type: "POST",
+            url: "/delete",
+            data: { id_give: post_id },
+            success: function (response) {
+                alert(response['msg'])
+                window.location.href = "/"
+            }
+        })
+    }
+
 
 </script>
 
@@ -46,52 +59,50 @@
 
 {% block body %}
 {{ super() }}
-    <div class="inner">    
-        <section class="introduce">
-            <div class="main_cards">
-                <div class="main animate fadeUp-left"></div>
-                <div class="main_frame animate fadeUp-right"></div>
-            </div>
-            <div class="main_text">
-                <h4 class="main_title">Let's Eat!</h4>
-                <p class="main_subtitle">매일 매일이 늘 바쁘고 힘들어도 <span class="pink">맛있는 걸 먹는 순간</span> 만큼은 너무 행복하고 소중해요. 그 순간을 기록하고 다른 사람과 공유하는 건 언제나 즐거운 것 같아요! <span class="pink">열심히 찍은 맛난 음식들을 많이 많이 올려서 자랑해주세요^^</span></p>
-            </div>
-        </section>
-        <section class="visual">
-            <div class="cards">
-                <div class="card-columns" id="cards-box">
-                    {% for diary in data %}
-                    <div class="card" id="{{ diary._id }}">
-                        <img class="card-img-top" src="../static/articleIMGs/{{ diary.img }}" alt="No images">
-                        <div class="card-body">
-                            <h5 class="card-title">{{diary.title}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{diary.place}}</h6>
-                            <p class="card-text">{{diary.content}}</p>
-                            <p class="date-time">{{diary.date}}</p>
-                            {% if user_info %}
-                            <nav class="level is-mobile">
-                                <div class="level-left">
-                                    <a class="level-item is-sparta" aria-label="heart"
-                                        onclick="toggle_like('{{diary._id}}', 'heart')">
-                                        <span class="icon is-small">
-                                            {% if diary.heart_by_me %}
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                            {% else %}
-                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                            {% endif %}
-                                        </span>&nbsp;
-                                        <span class="like-num">{{diary.count_heart}}</span>
-                                    </a>
-                                </div>
-                            </nav>
-                            {% endif %}
-    
-    
-                        </div>
+<div class="inner">
+    <section class="introduce">
+        <div class="main_cards">
+            <div class="main animate fadeUp-left"></div>
+            <div class="main_frame animate fadeUp-right"></div>
+        </div>
+        <div class="main_text">
+            <h4 class="main_title">Let's Eat!</h4>
+            <p class="main_subtitle">매일 매일이 늘 바쁘고 힘들어도 <span class="pink">맛있는 걸 먹는 순간</span> 만큼은 너무 행복하고 소중해요. 그 순간을 기록하고 다른 사람과 공유하는 건 언제나 즐거운 것 같아요! <span class="pink">열심히 찍은 맛난 음식들을 많이 많이 올려서 자랑해주세요^^</span></p>
+        </div>
+    </section>
+    <section class="visual">
+        <div class="cards">
+            <div class="card-columns" id="cards-box">
+                {% for diary in data %}
+                <div class="card" id="{{ diary._id }}">
+                    <img class="card-img-top" src="../static/articleIMGs/{{ diary.img }}" alt="No images">
+                    <div class="card-body">
+                        <h5 class="card-title">{{diary.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{diary.place}}</h6>
+                        <p class="card-text">{{diary.content}}</p>
+                        <p class="date-time">{{diary.date}}</p>
+                        {% if user_info %}
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item is-sparta" aria-label="heart"
+                                    onclick="toggle_like('{{diary._id}}', 'heart')">
+                                    <span class="icon is-small">
+                                        {% if diary.heart_by_me %}
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        {% else %}
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </span>&nbsp;
+                                    <span class="like-num">{{diary.count_heart}}</span>
+                                </a>
+                            </div>
+                            <button class="btn del" onclick="deletePage(`{{ diary._id }}`)">delete</button>
+                        </nav>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-    
                 </div>
+                {% endfor %}
+
             </div>
         </section>
         <section class="scroll">

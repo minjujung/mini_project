@@ -1,76 +1,124 @@
 {% extends 'nav.html' %}
 
 {% block head %}
-    <script defer src="/static/js/signup.js"></script>
+<script defer src="/static/js/signup.js"></script>
+<style>
+    .section {
+        padding: 1rem 1.5rem;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .title {
+        font-weight: 800;
+        font-size: 5rem;
+    }
+
+    .subtitle {
+        font-size: 2rem;
+    }
+
+    .check_dup {
+        height: 2.65em;
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 800;
+        text-align: center;
+        cursor: pointer;
+        box-sizing: border-box;
+        display: block;
+        background: lightpink;
+        opacity: 0.7;
+        transition: all 0.3s;
+    }
+
+    .check_dup:hover {
+        border: none;
+        color: white;
+        opacity: 1;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+
+    .btn {
+        background-color: lightpink;
+        border-color: transparent;
+    }
+
+    .btnsignup {
+        margin: auto;
+    }
+</style>
 {% endblock head %}
 
 {% block body %}
-    {{ super() }}
-    <section class="hero is-white">
-        <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-     
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="box" style="max-width: 480px;margin:auto">
-                <article class="media">
-                    <div class="media-content">
-                        <div class="content">
-                            <div class="field has-addons">
-                                <div class="control has-icons-left" style="width:100%">
-                                    <input id="input-username" class="input" type="text" placeholder="아이디">
-                                    <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-                                </div>
-                                <div id="btn-check-dup" class="control">
-                                    <button class="button is-sparta check_dup">중복확인</button>
-                                </div>
+{{ super() }}
+<section>
+    <div class=" has-text-centered" style="padding-bottom:1rem;margin:auto;">
+        <h1 class="title ">오늘도 돼지런</h1>
+        <h3 class="subtitle is-sparta">하루 하루 부지런하게 먹자!</h3>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="box" style="max-width: 530px;margin:auto">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <div id="check_dup_div" class="field has-addons">
+                            <div class="control has-icons-left" style="width:100%">
+                                <input id="input-username" class="input" type="text" placeholder="아이디">
+                                <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
-                            <p id="help-id" class="help">아이디는 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
-                            <p id="help-id-login" class="help is-danger"></p>
-    
+                            <div id="btn-check-dup" class="control">
+                                <button class="button is-sparta check_dup">중복확인</button>
+                            </div>
+                        </div>
+                        <p id="help-id" class="helpFont">아이디는 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
+                        <p id="help-id-login" class="help is-danger"></p>
+
+                        <div class="field">
+                            <div class="control has-icons-left">
+                                <input id="input-password1" class="input" type="password" placeholder="비밀번호">
+                                <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <p id="help-password" class="helpFont">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용
+                                가능합니다.</p>
+                        </div>
+
+
+                    </div>
+                    <div id="sign-up-box">
+                        <div class="mb-5">
                             <div class="field">
-                                <div class="control has-icons-left">
-                                    <input id="input-password1" class="input" type="password" placeholder="비밀번호">
+                                <div class="control has-icons-left" style="width:100%">
+                                    <input id="input-password2" class="input" type="password" placeholder="비밀번호 재입력">
                                     <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                                 </div>
-                                <p id="help-password" class="help">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용
-                                    가능합니다.</p>
+                                <p id="help-password2" class="helpFont">비밀번호를 다시 한 번 입력해주세요.</p>
                             </div>
-    
-    
-                        </div>
-                        <div id="sign-up-box">
-                            <div class="mb-5">
-                                <div class="field">
-                                    <div class="control has-icons-left" style="width:100%">
-                                        <input id="input-password2" class="input" type="password" placeholder="비밀번호 재입력">
-                                        <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <p id="help-password2" class="help">비밀번호를 다시 한 번 입력해주세요.</p>
-                                </div>
-                                <div class="control has-icons-left">
-                                    <input id="input-nickname" class="input" type="text" placeholder="닉네임">
-                                    <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-                                </div>
-                                <p id="help-nickname" class="help"></p>
+                            <div class="control has-icons-left">
+                                <input id="input-nickname" class="input" type="text" placeholder="닉네임">
+                                <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
-    
-    
-                            <nav class="level is-mobile">
-                                <button class="level-item button is-sparta sign_up">
-                                    회원가입
-                                </button>
-                                <button class="level-item button is-sparta is-outlined homeBtn">
-                                    그냥 구경할래요^^
-                                </button>
-                            </nav>
+                            <p id="help-nickname" class="help"></p>
                         </div>
-    
-    
+
+
+                        <nav class="level is-mobile">
+                            <button class="level-item button is-sparta sign_up btn btnsignup">
+                                회원가입
+                            </button>
+                            <button class="level-item button is-sparta is-outlined homeBtn btn btnsignup">
+                                그냥 구경할래요^^
+                            </button>
+                        </nav>
                     </div>
-                </article>
-            </div>
+
+
+                </div>
+            </article>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock body %}
