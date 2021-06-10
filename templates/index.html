@@ -1,74 +1,6 @@
 {% extends 'nav.html' %}
 {% block head %}
-<style>
-    body {
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 1.4;
-    }
-
-    inner {
-        width: 100%;
-        top: 10px;
-        left: 10px;
-    }
-
-    .visual {
-        display: block;
-    }
-
-
-    .cards {
-        padding: 0 200px;
-        display: block;
-    }
-
-    img {
-        display: block;
-    }
-
-    .card-title {
-        color: royalblue;
-        font-weight: 700;
-    }
-
-    .card-text {
-        font-weight: 600;
-    }
-
-    .date-time {
-        font-size: 13px;
-    }
-
-    .card-columns .card {
-        border-radius: 10px;
-        margin: 20px 40px;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        transition: all 0.5s;
-        animation: fadein 4s;
-    }
-
-    @keyframes fadein {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
-
-    .card-columns .card:hover {
-        transform: scale3d(1.03, 1.03, 1.2);
-    }
-
-    .card-columns .card-img-top {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-</style>
-
+<link rel="stylesheet" href="../static/css/main.css">
 <script>
     function toggle_like(diary_id, type) {
         console.log(diary_id, type)
@@ -107,6 +39,7 @@
             })
         }
     }
+
 </script>
 
 {% endblock %}
@@ -114,6 +47,16 @@
 {% block body %}
 {{ super() }}
     <div class="inner">    
+        <section class="introduce">
+            <div class="main_cards">
+                <div class="main animate fadeUp-left"></div>
+                <div class="main_frame animate fadeUp-right"></div>
+            </div>
+            <div class="main_text">
+                <h4 class="main_title">Let's Eat!</h4>
+                <p class="main_subtitle">매일 매일이 늘 바쁘고 힘들어도 <span class="pink">맛있는 걸 먹는 순간</span> 만큼은 너무 행복하고 소중해요. 그 순간을 기록하고 다른 사람과 공유하는 건 언제나 즐거운 것 같아요! <span class="pink">열심히 찍은 맛난 음식들을 많이 많이 올려서 자랑해주세요^^</span></p>
+            </div>
+        </section>
         <section class="visual">
             <div class="cards">
                 <div class="card-columns" id="cards-box">
@@ -149,6 +92,13 @@
                     {% endfor %}
     
                 </div>
+            </div>
+        </section>
+        <section class="scroll">
+            <p>Scroll Down</p>
+            <div class="scroll_arrow">
+                <span></span>
+                <span></span>
             </div>
         </section>
     </div>

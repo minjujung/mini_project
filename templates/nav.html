@@ -4,12 +4,16 @@
     <nav class="header">
         <a href="/">
             <img class="logo"
-                src="../static/logo.png"
-                alt="logo" />
+            src="../static/logo.png"
+            alt="logo" />
         </a>
+        <div class="logo_text">
+            <h1 class="logo_title">오늘도 돼지런!</h1>
+            <h3 class="logo_subtitle">하루하루 부지런히 먹자>< </h3>
+        </div>
         <ul class="btn_containers">
             {% if user_info %}
-            <h3>
+            <h3 class="nickname">
                 {{user_info.nickname}}님, 안녕하세요!
             </h3>
             <li>
@@ -19,6 +23,9 @@
                 <button class="logoutBtn btn">log out</button>
             </li>
             {% else %}
+            <h3 class="nickname">
+                로그인하고 사진을 올려볼까요?
+            </h3>
             <li>
                 <button href="/sign_up" class="signupBtn btn">sign up</button>
             </li>

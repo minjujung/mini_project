@@ -4,7 +4,7 @@ const goToHome = () => {
   window.location.href = "/";
 };
 
-homeBtn.addEventListener("click", goToHome);
+homeBtn?.addEventListener("click", goToHome);
 
 const inputId = document.getElementById("input-username");
 const inputPW1 = document.getElementById("input-password1");
@@ -144,5 +144,5 @@ const signUpClick = () => {
   });
 };
 
-signUp.addEventListener("click", signUpClick);
-checkDup.addEventListener("click", checkDupClick);
+signUp?.addEventListener("click", signUpClick);
+checkDup?.addEventListener("click", checkDupClick);

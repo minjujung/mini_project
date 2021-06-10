@@ -1,0 +1,249 @@
+body {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.inner {
+    width: 100%;
+}
+
+.visual {
+    display: block;
+}
+
+
+.cards {
+    padding: 0 200px;
+    display: block;
+}
+
+img {
+    display: block;
+}
+
+.card-title {
+    color: royalblue;
+    font-weight: 700;
+}
+
+.card-text {
+    font-weight: 600;
+}
+
+.date-time {
+    font-size: 13px;
+}
+
+.card-columns .card {
+    border-radius: 10px;
+    margin: 20px 40px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 0.5s;
+    animation: fadein 4s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+.card-columns .card:hover {
+    transform: scale3d(1.03, 1.03, 1.2);
+}
+
+.card-columns .card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.introduce {
+    width: 100%;
+    height: 80vh;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    margin: 100px 0
+}
+.animate {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.fadeUp-left {
+    animation-name: fadeUp-left;
+}
+
+@keyframes fadeUp-left {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(-10deg);
+    }
+}
+
+.fadeUp-right {
+    animation-name: fadeUp-right;
+}
+
+@keyframes fadeUp-right {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(10deg);
+    }
+}
+
+.main {
+    width: 300px;
+    height: 420px;
+    background-image: url("../main.jpg");
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    margin: 10px 0 0 100px;
+    position: relative;
+    top: -40px;
+    z-index: 5;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    animation-delay: 0s;
+}
+
+.main_frame {
+    width: 300px;
+    height: 380px;
+    border-radius: 10px;
+    background-color: #ffcdd2;
+    position: absolute;
+    top: 280px;
+    left: 300px;
+    z-index: 0;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    animation-delay: 0.5s;
+}
+
+.main_text {
+    width: 50%;
+    margin-left: 300px;
+    justify-items: right;
+    text-align: center;
+    animation: fadein 3s;
+}
+
+.main_title {
+    font-size: 50px;
+    margin-bottom: 40px;
+    font-weight: 800;
+}
+
+.main_subtitle {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.pink {
+    background-color: #ffcdd2be;
+    font-weight: 800;
+}
+
+@media only screen and (max-width: 1130px) {
+    .main_title {
+        font-size: 40px;
+    }
+    
+    .main_subtitle {
+        font-size: 26px;
+    }
+  }
+
+  @media only screen and (max-width: 1300px) {
+    .introduce {
+      flex-direction: column;
+    }
+
+    .main {
+        margin: 50px 0 0 0;
+    }
+    
+    .main_cards{
+        width: 400px;
+    }
+
+    .main_text {
+        margin-left: 0;
+        margin-top: 200px;
+    }
+
+    .visual{
+        margin-top: 500px;
+    }
+
+    .cards{
+        padding: 0 30px;
+    }
+  }
+
+  .scroll {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    height: 80px;
+    color: #cb9ca1;
+  }
+
+  .scroll_arrow {
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .scroll_arrow span {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      border-bottom: 3px solid #cb9ca1;
+      border-right: 3px solid #cb9ca1;
+      transform: rotate(45deg);
+      margin: -10px;
+      animation: animate 2s infinite;
+  }
+
+  .scroll_arrow span:nth-child(1) {
+      animation-delay: -0.2s;
+  }
+
+  .scroll_arrow span:nth-child(2) {
+      animation-delay: -0.4s;
+  }
+
+  @keyframes animate {
+      0%
+      {
+          opacity: 0;
+          transform: rotate(45deg) translate(-20px, -20px);
+      }
+      50%
+      {
+          opacity: 1;
+      }
+      100%
+      {
+          opacity: 0;
+          transform: rotate(45deg) translate(20px, 20px);
+      }
+  }
