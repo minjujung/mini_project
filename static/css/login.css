@@ -1,0 +1,42 @@
+body {
+    height: 80vh;
+}
+
+.login-intro{
+    margin-top: 100px;
+}
+
+.section {
+    padding: 1rem 1.5rem;
+    max-width: 700px;
+    margin: auto;
+}
+
+.title {
+    font-weight: 800;
+    font-size: 5rem;
+}
+
+.subtitle {
+    font-size: 2rem;
+}
+
+.button.is-sparta {
+    width: 100%;
+    margin: auto;
+    background-color: lightpink;
+    border-color: transparent;
+}
+
+.button.is-sparta:hover {
+    opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 5px 0px;
+}
+
+.is-danger {
+    font-size: 1rem;
+}
+
+.is-hidden {
+    display: none !important;
+}

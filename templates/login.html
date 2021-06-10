@@ -1,43 +1,8 @@
 {% extends 'nav.html' %}
 
 {% block head %}
+<link rel="stylesheet" href="/static/css/login.css">
 <script defer src="/static/js/signup.js"></script>
-<style>
-    .section {
-        padding: 1rem 1.5rem;
-        max-width: 700px;
-        margin: auto;
-    }
-
-    .title {
-        font-weight: 800;
-        font-size: 5rem;
-    }
-
-    .subtitle {
-        font-size: 2rem;
-    }
-
-    .button.is-sparta {
-        width: 100%;
-        margin: auto;
-        background-color: lightpink;
-        border-color: transparent;
-    }
-
-    .button.is-sparta:hover {
-        opacity: 1;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 5px 0px;
-    }
-
-    .is-danger {
-        font-size: 1rem;
-    }
-
-    .is-hidden {
-        display: none !important;
-    }
-</style>
 <script>
     function sign_in() {
         let username = $("#input-username").val()
@@ -83,10 +48,10 @@
 
 {% block body %}
 {{super()}}
-<section>
+<section class="login-intro">
     <div class=" has-text-centered" style="padding-bottom:1rem;margin:auto;">
-        <h1 class="title ">오늘도 돼지런</h1>
-        <h3 class="subtitle is-sparta">하루 하루 부지런하게 먹자!</h3>
+        <h1 class="title ">로그인</h1>
+        <h3 class="subtitle is-sparta">로그인을 하시면 더 알차게 '오늘도 돼지런'을 이용할 수 있어요!</h3>
     </div>
 </section>
 
