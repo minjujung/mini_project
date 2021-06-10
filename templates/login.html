@@ -2,46 +2,48 @@
 
 {% block head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
 <script defer src="/static/js/signup.js"></script>
 <style>
-    body {
-        background-color: RGBA(232, 52, 78, 0.2);
-        min-height: 100vh;
-    }
+    /*body {*/
+    /*    background-color: RGBA(232, 52, 78, 0.2);*/
+    /*    min-height: 100vh;*/
+    /*}*/
 
     .section {
         padding: 1rem 1.5rem;
-        max-width: 750px;
+        max-width: 700px;
         margin: auto;
     }
 
     .title {
         font-weight: 800;
         font-size: 5rem;
+
     }
 
     .subtitle {
         font-size: 2rem;
+
     }
 
-    .is-sparta {
-        color: #e8344e !important;
-    }
 
     .button.is-sparta {
-        background-color: #e8344e;
+        background-color: lightpink;
         border-color: transparent;
-        color: #fff !important;
+        color: white !important;
     }
 
-    .button.is-sparta.is-outlined {
-        background-color: transparent;
-        border-color: #e8344e;
-        color: #e8344e !important;
+    .button.is-sparta:hover{
+          color: white;
+          opacity: 1;
+           box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 5px 0px;
     }
 
     .help {
         color: gray;
+        font-size: 1rem;
     }
 
     .is-hidden {
@@ -93,10 +95,10 @@
 
 {% block body %}
     {{super()}}
-    <section class="hero is-white">
-        <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-            <h1 class="title is-sparta">SWEETER</h1>
-            <h3 class="subtitle is-sparta">세상을 달달하게</h3>
+    <section>
+        <div class=" has-text-centered" style="padding-bottom:1rem;margin:auto;">
+            <h1 class="title ">오늘도 돼지런</h1>
+            <h3 class="subtitle is-sparta">하루 하루 부지런하게 먹자!</h3>
         </div>
     </section>
 
@@ -130,7 +132,7 @@
                     </div>
                     <div id="div-sign-in-or-up" class="has-text-centered">
                         <nav class="level is-mobile">
-                            <button class="level-item button is-sparta" onclick="sign_in()">
+                            <button class="level-item button is-sparta " onclick="sign_in()">
                                 로그인
                             </button>
 
