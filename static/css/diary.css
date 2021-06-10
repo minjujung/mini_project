@@ -1,25 +1,29 @@
-   * {
-            font-family: "Jua", sans-serif;
-        }
 
-        .posting-box {
-            width: 500px;
-            margin-top: 20px;
-        }
+.jumbotron-fluid {
+    background:white;
+}
 
-        .wrap {
-            width: 900px;
-            margin: auto;
-        }
+.posting-box {
+  width: 500px;
+  margin-top: 20px;
+}
 
-        .container {
-            padding-left: 50px;
-        }
+.jumbotron-back {
+    background: white;
+}
+.wrap {
+  width: 900px;
+  margin: auto;
+}
 
-        .posting-box>.custom-file {
-            margin-bottom: 20px;
-        }
+.container {
+  padding-left: 50px;
+}
 
-        .date-time {
-            font-size: 13px;
-        }
+.posting-box > .custom-file {
+  margin-bottom: 20px;
+}
+
+.date-time {
+  font-size: 13px;
+}
