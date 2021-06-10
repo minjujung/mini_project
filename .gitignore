@@ -1,6 +1,5 @@
 __pycache__
 *.log
-run
 env.sh
 
 /static/articleIMGs/
