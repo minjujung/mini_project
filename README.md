@@ -134,11 +134,14 @@ http://manju.shop/
 <전체 와이어프레임>
 ![](https://images.velog.io/images/goplanit/post/595ed14b-a56d-4278-9c77-d3ba8baaf1c2/image.png)
 
-<Home 페이지>
+<Home 페이지><br>
 ![](https://images.velog.io/images/goplanit/post/dd8ca341-3727-4728-a27a-8a228b1e1c5a/image.png)
-<회원가입 페이지>
+
+<회원가입 페이지><br>
 ![](https://images.velog.io/images/goplanit/post/2b0bc175-02fd-4cda-818f-ba62d8d5b309/image.png)
-<로그인 페이지>
+
+<로그인 페이지><br>
 ![](https://images.velog.io/images/goplanit/post/821e9503-0d22-4bdb-afac-96c8710945fe/image.png)
-<일기 작성 페이지>
+
+<일기 작성 페이지><br>
 ![](https://images.velog.io/images/goplanit/post/c60ecc79-679c-40ac-adde-6c827d0c4060/image.png)
