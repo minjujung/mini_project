@@ -30,11 +30,13 @@ def main():
                 diary["_id"] = str(diary["_id"])
                 diary["count_heart"] = db.likes.count_documents({"diary_id": diary["_id"], "type": "heart"})
                 diary["heart_by_me"] = bool(db.likes.find_one({"diary_id": diary["_id"], "type": "heart", "username": payload['id']}))
+            diaries = reversed(diaries)
             return render_template("index.html", data = diaries, user_info = user_info)
         except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
             return render_template("index.html")
     else:
         diaries = list(db.articles.find({}, {'_id': False}))
+        diaries = reversed(diaries)
     return render_template("index.html", data = diaries)
 
 # 포스팅 삭제하기
